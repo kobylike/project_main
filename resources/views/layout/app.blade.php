@@ -54,6 +54,7 @@
 							</div>
 
 							<!--Footer Column-->
+                            
                             <div class="footer-column col-lg-5 col-md-6 col-sm-12">
                                 <div class="footer-widget links-widget">
                                 	<h2>Quick links</h2>
@@ -67,6 +68,7 @@
                                     </div>
 								</div>
 							</div>
+                            
 
 						</div>
 					</div>

@@ -52,7 +52,7 @@ input[readonly] {
 <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <form method="post" action="{{ route('category.store') }}" role="form" >
+        <form method="post" action="{{ route('admin category.store') }}" role="form" >
             @csrf
           <div class="form-group">
             <input type="text" class="form-control" value="{{ old('name') }}"  name="name" placeholder="Category Name"/>

@@ -30,8 +30,8 @@
               <tr>
                 <td>{{ $category->name }}</td>
 
-                <td><button  type="button"><a href="{{ route('category.edit', $category) }}"><i class="fa fa-edit"></i></a></button> |
-                    <button  type="button"><a href="{{ route('category.delete', $category) }}"><i class="fa fa-trash" aria-hidden="true"></i></a></button></td>
+                <td><button  type="button"><a href="{{ route('admin category.edit', $category) }}"><i class="fa fa-edit"></i></a></button> |
+                    <button  type="button"><a href="{{ route('admin category.delete', $category) }}"><i class="fa fa-trash" aria-hidden="true"></i></a></button></td>
                         <td>{{ $category->created_at->diffForHumans() }}</td>
 
 

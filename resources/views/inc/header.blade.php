@@ -1,6 +1,6 @@
 <header class="main-header header-style-two">
      <!--Header Top-->
-     <div class="header-top">
+     {{-- <div class="header-top">
         <div class="auto-container clearfix">
             <div class="top-left clearfix">
                 <div class="text"><span class="icon flaticon-call-answer"></span> Need help? Call Us Now : <a href="tel:1800-456-7890" class="number">1800 456 7890</a></div>
@@ -15,7 +15,7 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- End Header Top -->
     <!-- Header Upper -->
     <div class="header-upper">
@@ -38,7 +38,9 @@
 
                     <div class="collapse navbar-collapse clearfix" id="navbarSupportedContent">
                         <ul class="navigation clearfix">
+
                             <li class="{{ Request::routeIs('/.index')? 'current dropdown' : '' }}"><a href="{{ route('/.index') }}">Home</a></li>
+
                             @guest
                             <li class="dropdown"><a href="about.html">About us</a>
                                 <ul>
@@ -74,7 +76,11 @@
                             </li>
                             @endguest
                             <li class="{{ Request::routeIs('blog.index')? 'current dropdown' : '' }}"><a href="{{ route('blog.index') }}">Blog</a> </li>
+
                             @guest
+
+
+
                             <li class="dropdown"><a href="shop.html">Shop</a>
                                 <ul>
                                     <li><a href="shop.html">Main shop page</a></li>
@@ -84,6 +90,8 @@
                                 </ul>
                             </li>
 
+
+
                             <li><a href="contact.html">Contact</a></li>
 
                             <li class="dropdown"><a href="#"><span> Join Us</span> <i class="bi bi-chevron-down"></i></a>
@@ -92,14 +100,20 @@
                                     <li class="{{ Request::routeIs('registeredUser.register')? 'current dropdown' : '' }}"><a href="{{ route('register') }}">Register</a></li>
                                 </ul>
                               </li>
+
+
                             @endguest
 
 
 
                             @auth
-                            <li class="{{ Request::routeIs('blog.create')? 'current dropdown' : '' }}"><a href="{{ route('blog.create') }}">Create Post</a></li>
-                            <li class="{{ Request::routeIs('category.create')? 'current dropdown' : ''}}"><a href="{{ route('category.create') }}">Create Category</a></li>
-                            <li class="{{ Request::routeIs('category.index') ? 'current dropdown' : '' }}"><a href="{{ route('category.index') }}">Category List</a></li>
+                            @role('admin')
+                            <li class="{{ Request::routeIs('admin.index')? 'current dropdown' : '' }}"><a href="{{ route('admin.index') }}">Dashboard</a></li>
+                            <li class="{{ Request::routeIs('blog.create')? 'current dropdown' : '' }}"><a href="{{ route('admin blog.create') }}">Create Post</a></li>
+                            <li class="{{ Request::routeIs('category.create')? 'current dropdown' : ''}}"><a href="{{ route('admin category.create') }}">Create Category</a></li>
+                            <li class="{{ Request::routeIs('category.index') ? 'current dropdown' : '' }}"><a href="{{ route('admin category.index') }}">Category List</a></li>
+                              @endrole
+
                             <li class="dropdown"><a href="#"><span> Action</span> <i class="bi bi-chevron-down"></i></a>
                                 <ul>
                                     <li value="disabled">{{ Auth::user()->name }}</li>
@@ -116,6 +130,7 @@
 
                                 </ul>
                               </li>
+
                             @endauth
 
 

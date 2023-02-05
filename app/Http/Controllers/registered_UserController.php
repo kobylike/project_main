@@ -39,42 +39,64 @@ class registered_UserController extends Controller
 
     }
 
+
+
     public function login(Request $request){
-     $request->validate([
-       'email' => 'required|email|max:40',
-       'password' => 'required|max:40'
-       ]);
-       $email= $request->input('email');
-       $password= $request->input('password');
+        $check=$request->all();
 
-       $query=registered_User::where('email','=',$email)->first();
-
-       if($query){
-       if(Hash::check($password,$query->password)){
-
-        return redirect('/blog')->with('success','welcome');
-       }
-       else{
-
-        return back()->with('failed','Password Error');
-       }
-    }
-    else{
-        return back()->with('failed','Email does not exist');
-    }
+        $check=$request->validate([
+                   'email' => 'required|email|max:40',
+                   'password' => 'required|max:40'
+                   ]);
+        if(Auth::guard('registered_User')->attempt(['email' => $check['email'],'password'=>$check['password']])){
 
 
-    }
+            return redirect()->route('registeredUser.dashboard')->with('success','welcome');
+            }
+            else{
+                return back()->with('failed','Invalid Email or Password');
+            }
+
+}
+
+//     public function login(Request $request){
+//         if(Auth::guard('registered_User')){
+//      $request->validate([
+//        'email' => 'required|email|max:40',
+//        'password' => 'required|max:40'
+//        ]);
+//        $email= $request->input('email');
+//        $password= $request->input('password');
+
+//        $query=registered_User::where('email','=',$email)->first();
+
+//        if($query){
+//        if(Hash::check($password,$query->password)){
+
+//         return redirect()->route('registeredUser.dashboard')->with('success','welcome');
+//        }
+//        else{
+
+//         return back()->with('failed','Password Error');
+//        }
+//     }
+//     else{
+//         return back()->with('failed','Email does not exist');
+//     }
+// }
+//     }
 
     public function dashboard(Request $request){
 
-        $registeredUser=registered_User::all();
-        if($registeredUser->id && $request->url()!==url('/blog')){
+            return view('dashboard');
 
-                dd($registeredUser);
-            return view('Pages.Blog.blog',compact('registeredUser'));
+        }
 
+        public function logout(){
+
+            Auth::guard('registered_User')->logout();
+            return redirect()->route('registeredUser.login');
         }
     }
 
-}
+

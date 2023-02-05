@@ -42,8 +42,8 @@
 		                    <div class="inner-box">
                                 @auth
                                 @if(Auth::user()->id==$post->user->id)
-                            <button  type="button"><a href="{{ route('blog.edit',$post) }}"><i class="fa fa-edit"></i></a></button> |
-                            <button  type="button" ><a href="{{ route('blog.delete',$post) }}"><i class="fa fa-trash"></i></a></button>
+                            <button  type="button"><a href="{{ route('admin blog.edit',$post) }}"><i class="fa fa-edit"></i></a></button> |
+                            <button  type="button" ><a href="{{ route('admin blog.delete',$post) }}"><i class="fa fa-trash"></i></a></button>
                                 @endif
                                 @endauth
 

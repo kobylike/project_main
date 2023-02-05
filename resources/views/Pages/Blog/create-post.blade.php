@@ -61,7 +61,7 @@ input[readonly] {
 <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <form method="post" action="{{ route('blog.store') }}" role="form" enctype="multipart/form-data">
+        <form method="post" action="{{ route('admin blog.store') }}" role="form" enctype="multipart/form-data">
             @csrf
           <div class="form-group">
             <input type="text" class="form-control" value="{{ old('title') }}" name="title" placeholder="Title"/>
