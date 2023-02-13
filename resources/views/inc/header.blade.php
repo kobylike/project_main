@@ -92,7 +92,7 @@
 
 
 
-                            <li><a href="contact.html">Contact</a></li>
+                            <li class="{{ Request::routeIs('contact.index')? 'current dropdown' : '' }}"><a href="{{ route('contact.index') }}">Contact</a></li>
 
                             <li class="dropdown"><a href="#"><span> Join Us</span> <i class="bi bi-chevron-down"></i></a>
                                 <ul>

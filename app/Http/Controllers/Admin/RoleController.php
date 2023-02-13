@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -13,13 +14,30 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function givePermission(Request $request,Role $role){
+
+        if($request->permission){
+            $role->hasPermissionTo($request->permission);
+            return back()->with('success','Permission Exist');
+        }
+
+        $role->givePermissionTo($request->permission);
+
+
+        return back()->with('success','Permission Assigned to role Successfully');
+
+     }
+
     public function index()
     {
 
-        // $roles=Role::latest()->paginate(5);
+        $permissions=Permission::all();
         $roles= Role::whereNotIn('name', ['admin'])->latest()->paginate(5);
+        // $roles= Role::whereNotIn('name', ['admin'])->get();
+            //  $roles= Role::latest()->paginate(5);
 
-        return view('Pages.admin.roles.index',compact('roles'));
+        return view('Pages.admin.roles.index',compact('roles','permissions'));
     }
 
     /**
@@ -77,7 +95,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('Pages.admin.roles.edit-role',compact('role'));
+        $permissions=Permission::all();
+        return view('Pages.admin.roles.edit-role',compact('role','permissions'));
     }
 
     /**

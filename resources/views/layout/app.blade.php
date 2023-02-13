@@ -20,6 +20,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
 <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+
 </head>
 
 
@@ -54,7 +55,7 @@
 							</div>
 
 							<!--Footer Column-->
-                            
+
                             <div class="footer-column col-lg-5 col-md-6 col-sm-12">
                                 <div class="footer-widget links-widget">
                                 	<h2>Quick links</h2>
@@ -68,7 +69,7 @@
                                     </div>
 								</div>
 							</div>
-                            
+
 
 						</div>
 					</div>
@@ -138,7 +139,7 @@
 
         </script>
 
-        
+
 	</footer>
 
 </div>
@@ -189,6 +190,7 @@
 <script src="{{ asset('assets/js/appear.js') }}"></script>
 <script src="{{ asset('assets/js/scrollbar.js') }}"></script>
 <script src="{{ asset('assets/js/script.js')}}"></script>
+<script src="{{ asset('assets/js/map-script.js') }}"></script>
 
 
 

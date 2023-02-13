@@ -20,16 +20,20 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use HasRoles;
 
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
+
+
     protected $fillable = [
         'name',
         'email',
         'password',
-        'image'
+        'image',
+        'status'
     ];
 
     /**

@@ -12,8 +12,10 @@
 
             @role('admin')
             <li><a class="{{ Request::routeIs('admin.index') ? 'active' : ''}}"href="{{ route('admin.index') }}">Admin Dashboard</a></li>
+            <li><a class="{{ Request::routeIs('admin assignRole.index') ? 'active' : ''}}"href="{{ route('admin assignRole.index') }}">Users</a></li>
             <li><a class="{{ Request::routeIs('admin roles.index') ? 'active' : ''}}"href="{{route('admin roles.index')}} ">Roles</a></li>
             <li><a class="{{ Request::routeIs('admin permissions.index') ? 'active' : ''}}"href="{{ route('admin permissions.index') }}">Permissions</a></li>
+
             @endrole
           </ul>
         </div>

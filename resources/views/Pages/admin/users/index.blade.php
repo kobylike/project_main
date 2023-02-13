@@ -5,6 +5,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
+
 @section('content')
 
 @include('inc.header')
@@ -208,10 +209,10 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-5">
-                                <h2>Role <b>Management</b></h2>
+                                <h2>User <b>Management</b></h2>
                             </div>
                             <div class="col-sm-7">
-                                <button  class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span data-toggle="modal" data-target="#exampleModal">Create Role </span></button>
+                                <button  class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span data-toggle="modal" data-target="#exampleModal">Assign Role</span></button>
 
                             </div>
                         </div>
@@ -220,64 +221,50 @@
                         <thead>
                             <tr>
 
+
                                 <th>Name</th>
                                 <th>Date Created</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Permission</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($roles as $role )
+                            @foreach ($users as $user )
 
 
                             <tr>
-                                <td>{{ $role->name }}</td>
-                                <td>{{ $role->created_at->diffForHumans() }}</td>
+
+                                <td><a href="#"><img src="{{asset('storage/UserImages/'. $user->image) }}" class="avatar" alt="Avatar"> {{ $user->name }}</a></td>
+                                <td>{{ $user->created_at->diffForHumans() }}</td>
+                                <td>{{ $user->email }}</td>
+                                {{-- @foreach ($user->roles as $role )
+
+                                <td><div>{{ $role->name }}<br></div></td>
+
+                                @endforeach --}}
+
+                                <td>{!! $user->roles->pluck('name')->join('<br>') !!}</td>
+                                <td>{!! $user->permissions->pluck('name')->join('<br>') !!}</td>
+
+                                @if ($user->status=='1')
+                                <td><span class="status text-success">&bull;</span><a href="{{ route('admin status',$user->id) }}"> Active</a></td>
+                                @elseif ($user->status=='0')
+                                <td><span class="status text-danger">&bull;</span><a href="{{ route('admin status',$user->id)}}"> Deactivate</a></td>
+                                @endif
                                 <td>
-                                    <a href="{{ route('admin roles.edit',$role->id) }}" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-                                    <a href="{{ route('admin role.delete',$role) }}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+                                    <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
+                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
                                 </td>
                             </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                     <div class="clearfix">
-                        {{ $roles->links('pagination::bootstrap-5') }}
+
                     </div>
-
-
-                    <br>
-                    <h2 class="text-2xl font-semibold">Role Permission</h2>
-                    @if($role->permissions)
-                        @foreach ($role->permissions as $role_permission )
-                            {{ $role_permission->name  }}
-                        @endforeach
-                    @endif
-
-
-                  <br>
-                    <form method="post" action="{{ route('admin roles.permissions', $role) }}" role="form">
-                        @csrf
-                        <br>
-                        <label>Permission</label>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-
-                            <option value disabled selected>Open this select menu</option>=$0
-
-                            @foreach ($permissions as $permission )
-                            <option value="{{ $permission->name }}" >{{ $permission->name }}</option>
-                            @endforeach
-
-                          </select>
-
-                        @error('name')
-                            <p style="color: red"> {{ $message }}</p>
-                        @enderror
-
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary form-control "> Assign  </button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
@@ -297,11 +284,18 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="{{ route('admin roles.store') }}" method="POST">
+          <form action="{{ route('admin assignUser.role',$user) }}" method="POST">
             @csrf
-            <div class="form-group">
-              <input type="text" class="form-control" value="{{ old('role_name') }}"  name="role_name" placeholder="Role Name"/>
-            </div>
+            <label>Roles</label>
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                <option selected>Roles select menu</option>
+
+                @foreach ($roles as $role )
+                <option value="{{ $role->name }}" >{{ $role->name }}</option>
+                @endforeach
+
+
+              </select>
 
             @error('role_name')
 

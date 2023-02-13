@@ -106,7 +106,15 @@ class BlogController extends Controller
         $user_id=Auth::user()->id;
         $title=$request->input('title');
         $category_id=$request->input('category_id');
-        $slug=Str::slug($title,'-');
+
+        if(Post::latest()->first() !==null){
+            $postid=Post::latest()->first()->id + 1;
+                    }
+
+                else{
+                    $postid=1;
+                }
+        $slug=Str::slug($title,'-'.$postid);
         $body=$request->input('body');
         $image='storage/'.$request->file('image')->store('post_images','public');
 

@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\registered_UserController;
+use App\Http\Controllers\Admin\AssignRoleController;
 use App\Http\Controllers\Admin\PermissionController;
 
 /*
@@ -48,10 +50,18 @@ Route::get('/',[WelcomeController::class,'index'])->name('/.index');
         //roles
     Route::resource('/roles',RoleController::class);
     Route::get('/roles/{role}/delete',[RoleController::class,'destroy'])->name('role.delete');
+    Route::post('/roles/{role}/permissions',[RoleController::class,'givePermission'])->name('roles.permissions');
 
     //permissions
     Route::resource('/permissions',PermissionController::class);
     Route::get('/permissions/{permission}/delete',[PermissionController::class,'destroy'])->name('permission.delete');
+
+    //assignRole
+    Route::get('assign-role',[AssignRoleController::class,'index'])->name('assignRole.index');
+    Route::post('/assign-user/{role}/role',[AssignRoleController::class,'giveUserRole'])->name('assignUser.role');
+
+    Route::get('status{id}',[AssignRoleController::class,'status'])->name('status');
+
 });
 
 
@@ -59,6 +69,9 @@ Route::get('/',[WelcomeController::class,'index'])->name('/.index');
 Route::get('blog',[BlogController::class,'index'])->name('blog.index');
 Route::get('blog/{post:slug}',[BlogController::class,'show'])->name('blog.show');
 
+//contact
+Route::get('contact',[ContactController::class,'index'])->name('contact.index');
+Route::post('contact/store',[ContactController::class,'store'])->name('contact.store');
 
 
 
